@@ -196,3 +196,4 @@ jobs:
           git add .
           git commit -m "Automated Update For Apicurio Studio Release Version: ${{ github.event.inputs.release-version}}"
           git push
+          
