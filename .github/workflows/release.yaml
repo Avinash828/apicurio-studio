@@ -99,9 +99,9 @@ jobs:
         with:
          context: ./studio/platforms/thorntail/api
          file: ./studio/platforms/thorntail/api/Dockerfile
-         platforms: linux/amd64,linux/arm64
+         platforms: linux/amd64
          push: true
-         tags: Avinash828/apicurio-studio-api:latest
+         tags: apicurio/apicurio-studio-api:latest
       - name: Fetch Latest Commit SHA For Apicurio Studio
         run: |
           cd studio
