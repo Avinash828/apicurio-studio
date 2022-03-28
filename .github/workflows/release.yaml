@@ -87,7 +87,7 @@ jobs:
         run: |
            pwd
            ls
-           cd studio\platforms\thorntail\api
+           cd studio/platforms/thorntail/api
            ls
       - name: Setup qemu
         uses: docker/setup-qemu-action@v1
