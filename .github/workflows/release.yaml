@@ -106,7 +106,7 @@ jobs:
          file: ./studio/platforms/thorntail/api/Dockerfile
          platforms: linux/arm64
          push: true
-         tags: apicurio/apicurio-studio-api:latest
+         tags: imaggg1/apicurio-studio-api:latest
       - name: Fetch Latest Commit SHA For Apicurio Studio
         run: |
           cd studio
