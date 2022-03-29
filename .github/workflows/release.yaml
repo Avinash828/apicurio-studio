@@ -95,6 +95,8 @@ jobs:
           cd studio
           git add .
           git commit -m "Automated commit for Release Version: ${{ github.event.inputs.release-version }}"
+          git config -I
+          git branch
           git push     
       - name: Preparing Apicurio UI For Release
         run: |
