@@ -97,6 +97,9 @@ jobs:
           git commit -m "Automated commit for Release Version: ${{ github.event.inputs.release-version }}"
           git config -l
           git branch
+          git config --unset-all credential.helper
+          git config --global --unset-all credential.helper
+          git config --system --unset-all credential.helper
           git config --global user.email "mail2avi828@gmail.com"
           git config --global user.name "Avinash828"
           git config -l
