@@ -30,6 +30,11 @@ jobs:
         run: npm install github-release-notes -g
       - name: Set up NPM CLI Login
         run: npm install -g npm-cli-login
+      - name: Import GPG Key
+        uses: crazy-max/ghaction-import-gpg@v1
+        env:
+          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
+          PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       - name: Apicurio Studio Code Checkout
         run: |
           mkdir studio
