@@ -99,6 +99,8 @@ jobs:
           git branch
           git config --global user.email "mail2avi828@gmail.com"
           git config --global user.name "Avinash828"
+          git config -l
+          git branch
           git push     
       - name: Preparing Apicurio UI For Release
         run: |
