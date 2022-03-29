@@ -97,6 +97,8 @@ jobs:
           git commit -m "Automated commit for Release Version: ${{ github.event.inputs.release-version }}"
           git config -l
           git branch
+          git config --global user.email "mail2avi828@gmail.com"
+          git config --global user.name "Avinash828"
           git push     
       - name: Preparing Apicurio UI For Release
         run: |
