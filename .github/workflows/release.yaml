@@ -246,7 +246,7 @@ jobs:
                  apt install snapd -y && \
                  apt-get install openjdk-11-jdk -y && \
                  apt install docker.io -y && \
-                 snap install docker -y && \
+                 snap install docker && \
                  docker --version && \
                  apt-get install maven -y && \
                  mvn clean install && \
