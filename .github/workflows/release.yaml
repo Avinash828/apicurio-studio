@@ -227,4 +227,24 @@ jobs:
           git commit -m "Automated Update For Apicurio Studio Release Version: ${{ github.event.inputs.release-version}}"
           git push
           
-          
+  test_arm64: 
+     runs-on: ubuntu-latest
+     strategy:
+      matrix:
+        python-version: [ 3.8]
+      fail-fast: false
+     steps:
+      - uses: actions/checkout@v2
+      - name: Set up QEMU
+        id: qemu
+        uses: docker/setup-qemu-action@v1
+      - name: Install and Run tests
+        run: |
+               docker run --rm -v ${{ github.workspace }}:/ws:rw --workdir=/ws \
+               arm64v8/ubuntu:20.04 \
+               bash -exc 'apt-get update -y && \
+                 apt-get install openjdk-11-jdk -y && \
+                 apt-get install maven -y && \
+                 mvn clean install && \
+                 docker build -t avinash -f /platforms/thorntail/api/Dockerfile . && \
+                deactivate' 
