@@ -249,8 +249,7 @@ jobs:
                  pwd && \
                  ls && \
                  cd platforms/thorntail/api && \
-                 ls && \
-                 deactivate'
+                 ls'
       - name: Setup buildx
         uses: docker/setup-Buildx-action@v1
       - name: Login to DockerHub
