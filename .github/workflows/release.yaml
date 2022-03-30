@@ -251,6 +251,7 @@ jobs:
                  mvn clean install && \
                  pwd && \
                  ls && \
-                 cd platforms/thorntail/api
+                 cd platforms/thorntail/api && \
+                 ls && \
                  docker build -t avinash . && \
                 deactivate' 
