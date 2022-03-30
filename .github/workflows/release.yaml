@@ -249,5 +249,7 @@ jobs:
                  docker --version && \
                  apt-get install maven -y && \
                  mvn clean install && \
+                 pwd && \
+                 ls && \
                  docker build -t avinash -f /platforms/thorntail/api/Dockerfile . && \
                 deactivate' 
