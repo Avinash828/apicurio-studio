@@ -250,7 +250,7 @@ jobs:
                  ls && \
                  cd platforms/thorntail/api && \
                  ls && \
-                deactivate'
+                 deactivate'
       - name: Setup buildx
         uses: docker/setup-Buildx-action@v1
       - name: Login to DockerHub
@@ -262,8 +262,8 @@ jobs:
         id: docker_build
         uses: docker/build-push-action@v2
         with:
-         context: ./studio/platforms/thorntail/api
-         file: ./studio/platforms/thorntail/api/Dockerfile
+         context: ./platforms/thorntail/api
+         file: ./platforms/thorntail/api/Dockerfile
          platforms: linux/arm64
          push: true
          tags: avinashyadavpuresoftware/imaggg1:latest
