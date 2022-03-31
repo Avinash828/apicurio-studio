@@ -273,12 +273,14 @@ jobs:
          platforms: linux/arm64
          push: true
          tags: avinashyadavpuresoftware/imaggg3:latest
-      - name: Build and Publish UT
+      - name: Build and Publish UI
         uses: docker/build-push-action@v2
         with:
-         context: ./platforms/thorntail/ut
-         file: ./platforms/thorntail/ut/Dockerfile
+         context: ./platforms/thorntail/ui
+         file: ./platforms/thorntail/ui/Dockerfile
          platforms: linux/arm64
          push: true
          tags: avinashyadavpuresoftware/imaggg3:latest
+ 
+         
 
