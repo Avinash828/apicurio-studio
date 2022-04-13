@@ -1,5 +1,6 @@
 FROM centos:7
 LABEL authors="Eric Wittmann <eric.wittmann@redhat.com>"
+RUN uname -m
 ENV RELEASE_PATH target/apicurio-studio-ui-thorntail.jar
 RUN yum install -y \
     java-11-openjdk-headless \
