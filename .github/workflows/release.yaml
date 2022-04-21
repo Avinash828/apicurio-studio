@@ -113,15 +113,30 @@ jobs:
         with:
           username: avinashyadavpuresoftware
           password: Avinash@8794
-      - name: Build and Publish
-        id: docker_build
+      - name: Build and Publish API
         uses: docker/build-push-action@v2
         with:
          context: ./studio/platforms/thorntail/api
          file: ./studio/platforms/thorntail/api/Dockerfile
          platforms: linux/arm64, linux/amd64
          push: true
-         tags: avinashyadavpuresoftware/imaggg1:latest
+         tags: avinashyadavpuresoftware/api_local:latest
+      - name: Build and Publish WS
+        uses: docker/build-push-action@v2
+        with:
+         context: ./studio/platforms/thorntail/ws
+         file: ./studio/platforms/thorntail/ws/Dockerfile
+         platforms: linux/arm64, linux/amd64
+         push: true
+         tags: avinashyadavpuresoftware/ws_local:latest
+      - name: Build and Publish UI
+        uses: docker/build-push-action@v2
+        with:
+         context: ./studio/platforms/thorntail/ui
+         file: ./studio/platforms/thorntail/ui/Dockerfile
+         platforms: linux/arm64, linux/amd64
+         push: true
+         tags: avinashyadavpuresoftware/ui_local:latest
       - name: Fetch Latest Commit SHA For Apicurio Studio
         run: |
           cd studio
