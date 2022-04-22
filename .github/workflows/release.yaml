@@ -113,6 +113,12 @@ jobs:
         with:
           username: avinashyadavpuresoftware
           password: Avinash@8794
+      - name: Login to Quay.io
+        uses: docker/login-action@v1
+        with:
+          registry: quay.io
+          username: avinash_yadav
+          password: Avinash@8794
       - name: Build and Publish API
         uses: docker/build-push-action@v2
         with:
@@ -121,7 +127,8 @@ jobs:
          platforms: linux/arm64, linux/amd64
          push: true
          tags: avinashyadavpuresoftware/imagg1:latest,
-               avinashyadavpuresoftware/imagg1:right
+               avinashyadavpuresoftware/imagg1:latest release,
+               avinashyadavpuresoftware/imagg1:${{ github.event.inputs.release-version }}
       - name: Build and Publish WS
         uses: docker/build-push-action@v2
         with:
@@ -129,7 +136,9 @@ jobs:
          file: ./studio/platforms/thorntail/ws/Dockerfile
          platforms: linux/arm64, linux/amd64
          push: true
-         tags: avinashyadavpuresoftware/imaggg2:latest
+         tags: avinashyadavpuresoftware/imagg1:latest,
+               avinashyadavpuresoftware/imagg1:latest release,
+               avinashyadavpuresoftware/imagg1:${{ github.event.inputs.release-version }}
       - name: Build and Publish UI
         uses: docker/build-push-action@v2
         with:
@@ -137,21 +146,10 @@ jobs:
          file: ./studio/platforms/thorntail/ui/Dockerfile
          platforms: linux/arm64, linux/amd64
          push: true
-         tags: avinashyadavpuresoftware/imaggg3:latest,
-               avinashyadavpuresoftware/imaggg3:right
+         tags: avinashyadavpuresoftware/imagg1:latest,
+               avinashyadavpuresoftware/imagg1:latest release,
+               avinashyadavpuresoftware/imagg1:${{ github.event.inputs.release-version }}
       
-      - name: Push The Tagged Docker Images
-        run: |
-          cd studio
-          docker push avinashyadavpuresoftware/apicuri:latest
-          docker push apicurio/apicurio-studio-ws:latest
-          docker push apicurio/apicurio-studio-ui:latest
-          docker push apicurio/apicurio-studio-api:latest-release
-          docker push apicurio/apicurio-studio-ws:latest-release
-          docker push apicurio/apicurio-studio-ui:latest-release
-          docker push apicurio/apicurio-studio-api:${{ github.event.inputs.release-version }}
-          docker push apicurio/apicurio-studio-ws:${{ github.event.inputs.release-version }}
-          docker push apicurio/apicurio-studio-ui:${{ github.event.inputs.release-version }}
       - name: Updating Project Website for Release ${{ github.event.inputs.release-version }}
         run: |
           cd website
