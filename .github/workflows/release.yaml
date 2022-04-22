@@ -120,52 +120,7 @@ jobs:
           docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-ws" -t="avinashyadavpuresoftware/apicurio-studio-ws:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-ws:${{ github.event.inputs.release-version }}" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-ws" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-ws:latest-release" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-ws:${{ github.event.inputs.release-version }}" --platform linux/amd64,linux/arm64 --rm platforms/thorntail/ws/
           docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-ui" -t="avinashyadavpuresoftware/apicurio-studio-ui:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-ui:${{ github.event.inputs.release-version }}" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-ws" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-ui:latest-release" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-ui:${{ github.event.inputs.release-version }}" --platform linux/amd64,linux/arm64 --rm platforms/thorntail/ui/
 
-      - name: Fetch Latest Commit SHA For Apicurio Studio
-        run: |
-          cd studio
-          echo "latest_commit_sha=$(git log -n 1 --pretty=format:"%H")" >> $GITHUB_ENV
-      - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: ${{ github.event.inputs.release-version }} 
-          release_name: ${{ github.event.inputs.release-version }}
-          commitish: ${{ env.latest_commit_sha }} # explicitly passing the commit hash so that the latest commit is tagged and released
-      - name: Upload Release Asset-1
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url` 
-          asset_path: /home/runner/work/apicurio-studio/apicurio-studio/studio/releases/apicurio-studio-${{ github.event.inputs.release-version }}-quickstart.zip
-          asset_name: apicurio-studio-${{ github.event.inputs.release-version }}-quickstart.zip
-          asset_content_type: application/zip
-      - name: Upload Release Asset-2
-        uses: actions/upload-release-asset@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }} # This pulls from the CREATE RELEASE step above, referencing it's ID to get its outputs object, which include a `upload_url` 
-          asset_path: /home/runner/work/apicurio-studio/apicurio-studio/studio/releases/apicurio-studio-${{ github.event.inputs.release-version }}-quickstart.zip.asc
-          asset_name: apicurio-studio-${{ github.event.inputs.release-version }}-quickstart.zip.asc
-          asset_content_type: application/zip
-      - name: Generate Release Notes
-        run: cd studio && gren release --token=${{ secrets.GITHUB_TOKEN }} --override --prefix=v  
-      - name: Update Next Snapshot Version ${{ github.event.inputs.snapshot-version }} in pom.xml
-        run: cd studio && mvn versions:set -DnewVersion=${{ github.event.inputs.snapshot-version }} -DgenerateBackupPoms=false -DprocessAllModules=true
-      - name: Restoring 'latest-release' as the ImageStream version in the OpenShift template(s)"
-        run: |
-          cd studio/distro/openshift
-          sed -i "s/${{ github.event.inputs.release-version }}/latest-release/g" apicurio-template.yml
-          sed -i "s/${{ github.event.inputs.release-version }}/latest-release/g" apicurio-standalone-template.yml
-      - name: Commit Changes for Next Snapshot Version ${{ github.event.inputs.snapshot-version }}
-        run: |
-          cd studio
-          git add .
-          git commit -m "Automated commit for Next Snapshot Version: ${{ github.event.inputs.snapshot-version }}"
-          git push
+      
       - name: Push The Tagged Docker Images
         run: |
           cd studio
