@@ -117,8 +117,8 @@ jobs:
         uses: docker/login-action@v1
         with:
           registry: quay.io
-          username: avinash_yadav
-          password: Avinash@8794
+          username: avinash_yadav+avi_robo123
+          password: N1BEZTOD7JA30UTREF0BL1L56OA34DT8XV8NT49IQMGBE1W6AMRC1C3Q13KWG3UP
       - name: Build and Publish API
         uses: docker/build-push-action@v2
         with:
