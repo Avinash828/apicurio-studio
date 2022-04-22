@@ -127,8 +127,11 @@ jobs:
          platforms: linux/arm64, linux/amd64
          push: true
          tags: avinashyadavpuresoftware/imagg1:latest,
+               quay.io/avinashyadavpuresoftware/imagg1:latest,
                avinashyadavpuresoftware/imagg1:latest-release,
+               quay.io/avinashyadavpuresoftware/imagg1:latest-release,
                avinashyadavpuresoftware/imagg1:${{ github.event.inputs.release-version }}
+               quay.io/avinashyadavpuresoftware/imagg1:${{ github.event.inputs.release-version }}
       - name: Build and Publish WS
         uses: docker/build-push-action@v2
         with:
