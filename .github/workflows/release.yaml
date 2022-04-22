@@ -113,13 +113,32 @@ jobs:
         with:
           username: avinashyadavpuresoftware
           password: Avinash@8794
-      - name: Building Docker Images
-        run: |
-          cd studio
-          docker buildx build -t="avinashyadavpuresoftware/apicuri" -t="avinashyadavpuresoftware/apicurio-studio-api:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-api:${{ github.event.inputs.release-version }}" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-api" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-api:latest-release" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-api:${{ github.event.inputs.release-version }}" --platform linux/amd64,linux/arm64 --rm platforms/thorntail/api/.
-          docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-ws" -t="avinashyadavpuresoftware/apicurio-studio-ws:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-ws:${{ github.event.inputs.release-version }}" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-ws" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-ws:latest-release" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-ws:${{ github.event.inputs.release-version }}" --platform linux/amd64,linux/arm64 --rm platforms/thorntail/ws/
-          docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-ui" -t="avinashyadavpuresoftware/apicurio-studio-ui:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-ui:${{ github.event.inputs.release-version }}" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-ws" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-ui:latest-release" -t="quay.io/avinashyadavpuresoftware/apicurio-studio-ui:${{ github.event.inputs.release-version }}" --platform linux/amd64,linux/arm64 --rm platforms/thorntail/ui/
-
+      - name: Build and Publish API
+        uses: docker/build-push-action@v2
+        with:
+         context: ./platforms/thorntail/api
+         file: ./platforms/thorntail/api/Dockerfile
+         platforms: linux/arm64
+         push: true
+         tags: avinashyadavpuresoftware/imagg1:latest
+               avinashyadavpuresoftware/imagg1:right
+      - name: Build and Publish WS
+        uses: docker/build-push-action@v2
+        with:
+         context: ./platforms/thorntail/ws
+         file: ./platforms/thorntail/ws/Dockerfile
+         platforms: linux/arm64
+         push: true
+         tags: avinashyadavpuresoftware/imaggg2:latest
+      - name: Build and Publish UI
+        uses: docker/build-push-action@v2
+        with:
+         context: ./platforms/thorntail/ui
+         file: ./platforms/thorntail/ui/Dockerfile
+         platforms: linux/arm64
+         push: true
+         tags: avinashyadavpuresoftware/imaggg3:latest
+               avinashyadavpuresoftware/imaggg3:right
       
       - name: Push The Tagged Docker Images
         run: |
