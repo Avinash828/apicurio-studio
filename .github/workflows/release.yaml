@@ -124,15 +124,6 @@ jobs:
       - name: Push The Tagged Docker Images
         run: |
           cd studio
-          docker push avinashyadavpuresoftware/apicurio-studio-api:latest
-          docker push avinashyadavpuresoftware/apicurio-studio-ws:latest
-          docker push avinashyadavpuresoftware/apicurio-studio-ui:latest
-          docker push avinashyadavpuresoftware/apicurio-studio-api:latest-release
-          docker push avinashyadavpuresoftware/apicurio-studio-ws:latest-release
-          docker push avinashyadavpuresoftware/apicurio-studio-ui:latest-release
-          docker push avinashyadavpuresoftware/apicurio-studio-api:${{ github.event.inputs.release-version }}
-          docker push avinashyadavpuresoftware/apicurio-studio-ws:${{ github.event.inputs.release-version }}
-          docker push avinashyadavpuresoftware/apicurio-studio-ui:${{ github.event.inputs.release-version }}
           docker push quay.io/avinashyadavpuresoftware/apicurio-studio-api:latest
           docker push quay.io/avinashyadavpuresoftware/apicurio-studio-ws:latest
           docker push quay.io/avinashyadavpuresoftware/apicurio-studio-ui:latest
