@@ -116,9 +116,9 @@ jobs:
       - name: Building Docker Images
         run: |
           cd studio
-          docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-api" -t="avinashyadavpuresoftware/apicurio-studio-api:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-api:${{ github.event.inputs.release-version }}" -t="quay.io/avinash_yadav/apicurio-studio-api" -t="quay.io/avinash_yadav/apicurio-studio-api:latest-release" -t="quay.io/avinash_yadav/apicurio-studio-api:${{ github.event.inputs.release-version }}" --platform linux/arm64,linux/amd64 --rm platforms/thorntail/api/ --push
-          docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-ws" -t="avinashyadavpuresoftware/apicurio-studio-ws:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-ws:${{ github.event.inputs.release-version }}" -t="quay.io/avinash_yadav/apicurio-studio-ws" -t="quay.io/avinash_yadav/apicurio-studio-ws:latest-release" -t="quay.io/avinash_yadav/apicurio-studio-ws:${{ github.event.inputs.release-version }}" --platform linux/arm64,linux/amd64 --rm platforms/thorntail/ws/ --push
-          docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-ui" -t="avinashyadavpuresoftware/apicurio-studio-ui:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-ui:${{ github.event.inputs.release-version }}" -t="quay.io/avinash_yadav/apicurio-studio-ws" -t="quay.io/avinash_yadav/apicurio-studio-ui:latest-release" -t="quay.io/avinash_yadav/apicurio-studio-ui:${{ github.event.inputs.release-version }}" --platform linux/arm64,linux/amd64 --rm platforms/thorntail/ui/ --push
+          docker build -t="avinashyadavpuresoftware/apicurio-studio-api" -t="avinashyadavpuresoftware/apicurio-studio-api:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-api:${{ github.event.inputs.release-version }}" -t="quay.io/avinash_yadav/apicurio-studio-api" -t="quay.io/avinash_yadav/apicurio-studio-api:latest-release" -t="quay.io/avinash_yadav/apicurio-studio-api:${{ github.event.inputs.release-version }}" --rm platforms/thorntail/api/
+          docker build -t="avinashyadavpuresoftware/apicurio-studio-ws" -t="avinashyadavpuresoftware/apicurio-studio-ws:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-ws:${{ github.event.inputs.release-version }}" -t="quay.io/avinash_yadav/apicurio-studio-ws" -t="quay.io/avinash_yadav/apicurio-studio-ws:latest-release" -t="quay.io/avinash_yadav/apicurio-studio-ws:${{ github.event.inputs.release-version }}" --rm platforms/thorntail/ws/
+          docker build -t="avinashyadavpuresoftware/apicurio-studio-ui" -t="avinashyadavpuresoftware/apicurio-studio-ui:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-ui:${{ github.event.inputs.release-version }}" -t="quay.io/avinash_yadav/apicurio-studio-ws" -t="quay.io/avinash_yadav/apicurio-studio-ui:latest-release" -t="quay.io/avinash_yadav/apicurio-studio-ui:${{ github.event.inputs.release-version }}" --rm platforms/thorntail/ui/
       - name: Push The Tagged Docker Images
         run: |
           cd studio
@@ -131,15 +131,15 @@ jobs:
           docker push avinashyadavpuresoftware/apicurio-studio-api:${{ github.event.inputs.release-version }}
           docker push avinashyadavpuresoftware/apicurio-studio-ws:${{ github.event.inputs.release-version }}
           docker push avinashyadavpuresoftware/apicurio-studio-ui:${{ github.event.inputs.release-version }}
-          docker push quay.io/avinash_yadav+avi_robo123-studio-api:latest
-          docker push quay.io/avinash_yadav+avi_robo123/apicurio-studio-ws:latest
-          docker push quay.io/avinash_yadav+avi_robo123/apicurio-studio-ui:latest
-          docker push quay.io/avinash_yadav+avi_robo123/apicurio-studio-api:latest-release
-          docker push quay.io/avinash_yadav+avi_robo123/apicurio-studio-ws:latest-release
-          docker push quay.io/avinash_yadav+avi_robo123/apicurio-studio-ui:latest-release
-          docker push quay.io/avinash_yadav+avi_robo123/apicurio-studio-api:${{ github.event.inputs.release-version }}
-          docker push quay.io/avinash_yadav+avi_robo123/apicurio-studio-ws:${{ github.event.inputs.release-version }}
-          docker push quay.io/avinash_yadav+avi_robo123/apicurio-studio-ui:${{ github.event.inputs.release-version }}
+          docker push quay.io/avinash_yadav/apicurio-studio-api:latest
+          docker push quay.io/avinash_yadav/apicurio-studio-ws:latest
+          docker push quay.io/avinash_yadav/apicurio-studio-ui:latest
+          docker push quay.io/avinash_yadav/apicurio-studio-api:latest-release
+          docker push quay.io/avinash_yadav/apicurio-studio-ws:latest-release
+          docker push quay.io/avinash_yadav/apicurio-studio-ui:latest-release
+          docker push quay.io/avinash_yadav/apicurio-studio-api:${{ github.event.inputs.release-version }}
+          docker push quay.io/avinash_yadav/apicurio-studio-ws:${{ github.event.inputs.release-version }}
+          docker push quay.io/avinash_yadav/apicurio-studio-ui:${{ github.event.inputs.release-version }}
       
       - name: Updating Project Website for Release ${{ github.event.inputs.release-version }}
         run: |
