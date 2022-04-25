@@ -36,7 +36,7 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       - name: Login to Quay.io Registry
-        run: echo $Anuj221$ | docker login quay.io -u priyas2856 --password-stdin
+        run: echo priya221 | docker login quay.io -u priyas2856 --password-stdin
       - name: Apicurio Studio Code Checkout
         run: |
           mkdir studio
