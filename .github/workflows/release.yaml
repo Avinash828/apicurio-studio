@@ -36,7 +36,7 @@ jobs:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
           PASSPHRASE: ${{ secrets.GPG_PASSPHRASE }}
       - name: Login to Quay.io Registry
-        run: echo priya221 | docker login quay.io -u priyas2856 --password-stdin
+        run: echo ${{ secrets.QUAY_PASSWORD}} | docker login quay.io -u ${{ secrets.QUAY_USERNAME}} --password-stdin
       - name: Apicurio Studio Code Checkout
         run: |
           mkdir studio
@@ -116,30 +116,9 @@ jobs:
       - name: Building Docker Images
         run: |
           cd studio
-          docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-api" -t="avinashyadavpuresoftware/apicurio-studio-api:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-api:${{ github.event.inputs.release-version }}" -t="quay.io/priyas2856/apicurio-studio-api" -t="quay.io/priyas2856/apicurio-studio-api:latest-release" -t="quay.io/priyas2856/apicurio-studio-api:${{ github.event.inputs.release-version }}" --platform linux/arm64,linux/amd64 --rm platforms/thorntail/api/
-          docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-ws" -t="avinashyadavpuresoftware/apicurio-studio-ws:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-ws:${{ github.event.inputs.release-version }}" -t="quay.io/priyas2856/apicurio-studio-ws" -t="quay.io/priyas2856/apicurio-studio-ws:latest-release" -t="quay.io/priyas2856/apicurio-studio-ws:${{ github.event.inputs.release-version }}" --platform linux/arm64,linux/amd64 --rm platforms/thorntail/ws/
-          docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-ui" -t="avinashyadavpuresoftware/apicurio-studio-ui:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-ui:${{ github.event.inputs.release-version }}" -t="quay.io/priyas2856/apicurio-studio-ui" -t="quay.io/priyas2856/apicurio-studio-ui:latest-release" -t="quay.io/priyas2856/apicurio-studio-ui:${{ github.event.inputs.release-version }}" --platform linux/arm64,linux/amd64 --rm platforms/thorntail/ui/
-      - name: Push The Tagged Docker Images
-        run: |
-          cd studio
-          docker push avinashyadavpuresoftware/apicurio-studio-api:latest
-          docker push avinashyadavpuresoftware/apicurio-studio-ws:latest
-          docker push avinashyadavpuresoftware/apicurio-studio-ui:latest
-          docker push avinashyadavpuresoftware/apicurio-studio-api:latest-release
-          docker push avinashyadavpuresoftware/apicurio-studio-ws:latest-release
-          docker push avinashyadavpuresoftware/apicurio-studio-ui:latest-release
-          docker push avinashyadavpuresoftware/apicurio-studio-api:${{ github.event.inputs.release-version }}
-          docker push avinashyadavpuresoftware/apicurio-studio-ws:${{ github.event.inputs.release-version }}
-          docker push avinashyadavpuresoftware/apicurio-studio-ui:${{ github.event.inputs.release-version }}
-          docker push quay.io/priyas2856/apicurio-studio-api:latest
-          docker push quay.io/priyas2856/apicurio-studio-ws:latest
-          docker push quay.io/priyas2856/apicurio-studio-ui:latest
-          docker push quay.io/priyas2856/apicurio-studio-api:latest-release
-          docker push quay.io/priyas2856/apicurio-studio-ws:latest-release
-          docker push quay.io/priyas2856/apicurio-studio-ui:latest-release
-          docker push quay.io/priyas2856/apicurio-studio-api:${{ github.event.inputs.release-version }}
-          docker push quay.io/priyas2856/apicurio-studio-ws:${{ github.event.inputs.release-version }}
-          docker push quay.io/priyas2856/apicurio-studio-ui:${{ github.event.inputs.release-version }}
+          docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-api" -t="avinashyadavpuresoftware/apicurio-studio-api:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-api:${{ github.event.inputs.release-version }}" -t="quay.io/${{ secrets.QUAY_PASSWORD}}/apicurio-studio-api" -t="quay.io/${{ secrets.QUAY_PASSWORD}}/apicurio-studio-api:latest-release" -t="quay.io/${{ secrets.QUAY_PASSWORD}}/apicurio-studio-api:${{ github.event.inputs.release-version }}" --platform linux/arm64,linux/amd64 --rm platforms/thorntail/api/ --push
+          docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-ws" -t="avinashyadavpuresoftware/apicurio-studio-ws:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-ws:${{ github.event.inputs.release-version }}" -t="quay.io/${{ secrets.QUAY_PASSWORD}}/apicurio-studio-ws" -t="quay.io/${{ secrets.QUAY_PASSWORD}}/apicurio-studio-ws:latest-release" -t="quay.io/${{ secrets.QUAY_PASSWORD}}/apicurio-studio-ws:${{ github.event.inputs.release-version }}" --platform linux/arm64,linux/amd64 --rm platforms/thorntail/ws/ --push
+          docker buildx build -t="avinashyadavpuresoftware/apicurio-studio-ui" -t="avinashyadavpuresoftware/apicurio-studio-ui:latest-release" -t="avinashyadavpuresoftware/apicurio-studio-ui:${{ github.event.inputs.release-version }}" -t="quay.io/${{ secrets.QUAY_PASSWORD}}/apicurio-studio-ui" -t="quay.io/${{ secrets.QUAY_PASSWORD}}/apicurio-studio-ui:latest-release" -t="quay.io/${{ secrets.QUAY_PASSWORD}}/apicurio-studio-ui:${{ github.event.inputs.release-version }}" --platform linux/arm64,linux/amd64 --rm platforms/thorntail/ui/ --push
       
       - name: Updating Project Website for Release ${{ github.event.inputs.release-version }}
         run: |
